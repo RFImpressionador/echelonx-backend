@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: echelonx-backend
+    env: node
+    buildCommand: "npm install"
+    startCommand: "node server.js"
+    envVars:
+      - key: DATABASE_URL
+        fromEnvVar: DATABASE_URL
