@@ -1,0 +1,50 @@
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Usuario {
+  id       Int     @id @default(autoincrement())
+  nome     String
+  email    String  @unique
+  senha    String
+  perfil   String  // Admin, Comandante, Agente, etc.
+  missoes  Missao[]
+}
+
+model PontoTatico {
+  id           Int                 @id @default(autoincrement())
+  nome         String
+  tipo         String             // Tráfico, Ponto Base, etc.
+  latitude     Float
+  longitude    Float
+  turno        String?
+  imagens      String[]           // URLs das imagens
+  historicos   HistoricoCriminal[]
+  missoes      Missao[]
+}
+
+model Missao {
+  id          Int      @id @default(autoincrement())
+  descricao   String
+  status      String   // Em Aberto, Em Andamento, Concluída
+  agenteId    Int
+  pontoId     Int
+
+  agente      Usuario   @relation(fields: [agenteId], references: [id])
+  ponto       PontoTatico @relation(fields: [pontoId], references: [id])
+}
+
+model HistoricoCriminal {
+  id         Int        @id @default(autoincrement())
+  relato     String
+  data       DateTime   @default(now())
+  pontoId    Int
+
+  ponto      PontoTatico @relation(fields: [pontoId], references: [id])
+}
