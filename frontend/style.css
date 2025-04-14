@@ -1,0 +1,67 @@
+body {
+  margin: 0;
+  font-family: "Segoe UI", sans-serif;
+  background-image: url("visual-classico.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: #00ffff;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #020817;
+}
+.container {
+  text-align: center;
+}
+.logo {
+  width: 230px;
+  margin-bottom: 10px;
+}
+.titulo {
+  font-size: 2.5em;
+  color: #00ffff;
+  margin: 0;
+}
+.subtitulo {
+  margin-top: 10px;
+  font-size: 1.1em;
+  color: #00e0e0;
+}
+.login-box {
+  margin-top: 30px;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 0 20px #00ffff;
+}
+.login-box input {
+  display: block;
+  width: 100%;
+  max-width: 300px;
+  margin: 10px auto;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+}
+.login-box button {
+  width: 100%;
+  max-width: 300px;
+  padding: 10px;
+  margin: 10px auto;
+  border: none;
+  border-radius: 5px;
+  background-color: transparent;
+  color: #00ffff;
+  font-weight: bold;
+  border: 1px solid #00ffff;
+  box-shadow: 0 0 10px #00ffff;
+  cursor: pointer;
+}
+.login-box .secundario {
+  background-color: transparent;
+  color: #00e0e0;
+  border-color: #00e0e0;
+  box-shadow: 0 0 10px #00e0e0;
+}
