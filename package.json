@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+
+>>>>>>> f71ff49fb443e5664c7c41e6abc227654f4ad989
 {
   "name": "echelonx-backend",
   "version": "1.0.0",
@@ -6,6 +10,7 @@
     "start": "node server.js"
   },
   "dependencies": {
+<<<<<<< HEAD
     "@prisma/client": "^6.6.0",
     "bcrypt": "^5.1.0",
     "cors": "^2.8.5",
@@ -13,5 +18,11 @@
   },
   "devDependencies": {
     "prisma": "^6.6.0"
+=======
+    "@prisma/client": "^5.0.0",
+    "bcrypt": "^5.1.0",
+    "cors": "^2.8.5",
+    "express": "^4.18.2"
+>>>>>>> f71ff49fb443e5664c7c41e6abc227654f4ad989
   }
 }
