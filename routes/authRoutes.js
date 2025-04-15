@@ -6,7 +6,7 @@ const bcrypt = require('bcrypt');
 const prisma = new PrismaClient();
 
 router.post('/login', async (req, res) => {
-  const { username, password } = req.body;
+  const { username, password } = req.body; // lógica de autenticação com Prisma
 
   try {
     const user = await prisma.users.findUnique({
