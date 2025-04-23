@@ -1,0 +1,4 @@
+# Ignora as pastas que não precisam ir pro GitHub
+node_modules
+dist
+.env
