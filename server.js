@@ -1,34 +1,28 @@
 // Importa bibliotecas necessárias
-const express = require("express"); // Servidor HTTP
-const session = require("express-session"); // Gerenciar sessão de login
-const cors = require("cors"); // Permite que o frontend acesse o backend de outro domínio
+const express = require("express");
+const cors = require("cors");
+const path = require("path");
 
-const app = express(); // Cria o servidor
-const PORT = process.env.PORT || 5000; // Porta padrão 5000 ou a do ambiente (Render usa variável)
+const app = express();
+const authRoutes = require("./routes/authRoutes"); // Rotas de autenticação
 
-app.use(cors()); // Permite comunicação entre front e back
-app.use(express.json()); // Aceita JSON no corpo das requisições
-app.use(
-  session({
-    secret: "echelon-secret", // Senha da sessão (pode mudar pra mais segura)
-    resave: false,
-    saveUninitialized: true,
-  })
-);
+// Configurações básicas
+app.use(cors()); // Permite comunicação entre frontend e backend
+app.use(express.json()); // Aceita JSON
 
-// Rota de login
-app.post("/api/login", (req, res) => {
-  const { username, password } = req.body;
-  if (username === "admin" && password === "123") {
-    // Verifica login simples
-    req.session.user = username; // Salva usuário na sessão
-    return res.status(200).json({ message: "Login OK" }); // Responde sucesso
-  } else {
-    return res.status(401).json({ error: "Credenciais inválidas" }); // Responde erro
-  }
+// Rotas da API
+app.use("/api", authRoutes); // Todas as rotas de API começam com /api
+
+// Servir arquivos estáticos (frontend)
+app.use(express.static(path.join(__dirname, "frontend")));
+
+// Rota principal para abrir o site (index.html)
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "frontend", "index.html"));
 });
 
 // Inicializa o servidor
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Servidor rodando na porta ${PORT}`);
 });
