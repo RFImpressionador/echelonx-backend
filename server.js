@@ -28,3 +28,7 @@ app.post("/api/login", (req, res) => {
 app.listen(PORT, () => {
   console.log(`Servidor rodando na porta ${PORT}`);
 });
+// Teste simples para verificar se o backend está online
+app.get("/", (req, res) => {
+  res.send("Backend está rodando!");
+});
