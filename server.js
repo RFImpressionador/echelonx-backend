@@ -7,7 +7,9 @@ const app = express();
 const authRoutes = require("./routes/authRoutes"); // Rotas de autenticação
 
 // Configurações básicas
-app.use(cors()); // Permite comunicação entre frontend e backend
+app.use(cors({
+  origin: 'https://echelonx-painel.onrender.com'
+})); // Permite comunicação entre frontend e backend
 app.use(express.json()); // Aceita JSON
 
 // Rotas da API
