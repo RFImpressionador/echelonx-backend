@@ -1,30 +1,40 @@
-// Importa bibliotecas necessárias
+// Importa as bibliotecas necessárias
 const express = require("express");
-const cors = require("cors");
-const path = require("path");
+const session = require("express-session"); // Gerencia sessão do usuário
+const cors = require("cors"); // Permite comunicação entre domínios
 
-const app = express();
-const authRoutes = require("./routes/authRoutes"); // Rotas de autenticação
+const app = express(); // Cria o servidor
+const PORT = process.env.PORT || 5000; // Define a porta
 
-// Configurações básicas
+// Configuração do CORS (libera só para o frontend bonito)
 app.use(cors({
-  origin: 'https://echelonx-painel.onrender.com'
-})); // Permite comunicação entre frontend e backend
-app.use(express.json()); // Aceita JSON
+  origin: 'https://echelonx-painel.onrender.com', // Libera SÓ para o painel bonito
+  credentials: true // Permite enviar cookies e sessão
+}));
 
-// Rotas da API
-app.use("/api", authRoutes); // Todas as rotas de API começam com /api
+app.use(express.json()); // Permite receber JSON
 
-// Servir arquivos estáticos (frontend)
-app.use(express.static(path.join(__dirname, "frontend")));
+// Configura a sessão (armazena login)
+app.use(session({
+  secret: "echelon-secret", // Senha da sessão (pode mudar pra mais segura depois)
+  resave: false,
+  saveUninitialized: true
+}));
 
-// Rota principal para abrir o site (index.html)
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "frontend", "index.html"));
+// Rota de login
+app.post("/api/login", (req, res) => {
+  const { username, password } = req.body;
+
+  // Validação simples (pode trocar depois)
+  if (username === "admin" && password === "123") {
+    req.session.user = username; // Salva usuário na sessão
+    return res.status(200).json({ message: "Login OK" }); // Responde sucesso
+  } else {
+    return res.status(401).json({ error: "Credenciais inválidas" }); // Responde erro
+  }
 });
 
-// Inicializa o servidor
-const PORT = process.env.PORT || 5000;
+// Inicia o servidor
 app.listen(PORT, () => {
   console.log(`Servidor rodando na porta ${PORT}`);
 });
